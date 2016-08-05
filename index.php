@@ -5,6 +5,17 @@
  * Date: 05/08/2016
  * Time: 22:35
  */
+require_once(__DIR__."/app/bootstrap.php");
+
+use ORM\Repository\TypeRepository;
+use ORM\Repository\ProjectRepository;
+use ORM\Entity\Type;
+use ORM\Entity\Project;
+
+$typeRepo = new TypeRepository();
+$projectRepo = new ProjectRepository();
+$types = $typeRepo->findBy([], ['id' => "DESC"]);
+$projects = $projectRepo->findBy([], ['id' => "DESC"]);
 
 ?>
 
@@ -12,7 +23,6 @@
 <html lang="fr">
 
 <head>
-
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Burstfly - Free HTML5 Template</title>
 
@@ -30,17 +40,13 @@
 
 <body>
 
-<a name="ancre"></a>
-
 <!-- CACHE -->
 <div class="cache"></div>
 
 <!-- HEADER -->
-
 <div id="wrapper-header">
     <div id="main-header" class="object">
-        <div class="logo"><img src="site/medias/ZoominTV_Logo_RGB_4darkBG.png" alt="logo burstfly"
-                               style="height:38px; width: 90px;"></div>
+        <div class="logo"><img src="medias/logo_dark.png" alt="logo" style="height:38px;"></div>
         <div id="main_tip_search">
             <form>
                 <label for="tip_search_input" class="sr-only"></label>
@@ -76,22 +82,21 @@
             </div>
         </div>
         <div id="wrapper-bouton-icon">
-            <div id="bouton-photo"><img src="site/medias/Adobe-Img-icon.png" alt="Image" title="Image" height="28"
-                                        width="28"></div>
-            <div id="bouton-premium"><img src="site/medias/Adobe-Id-icon.png" alt="InDesign" title="InDesign"
-                                          height="28" width="28"></div>
-            <div id="bouton-psd"><img src="site/medias/Adobe-Ps-icon.png" alt="Photoshop" title="Photoshop" height="28"
-                                      width="28"></div>
-            <div id="bouton-ai"><img src="site/medias/Adobe-Ai-icon.png" alt="Illustrator" title="Illustrator"
-                                     height="28" width="28"></div>
-            <div id="bouton-font"><img src="site/medias/Adobe-Ae-icon.png" alt="After Effects" title="After Effects"
-                                       height="28" width="28"></div>
-
+            <?php
+            /** @var Type $type */
+            foreach ($types as $type): ?>
+                <div id="bouton-psd">
+                    <img src="img/icons/<?= $type->getImg() ?>" alt="<?= $type->getName() ?>"
+                         title="<?= $type->getId() ?>">
+                </div>
+            <?php
+            endforeach;
+            ?>
         </div>
     </div>
 </div>
 
-<!-- FILTER -->
+<!-- FILTER - RESPONSIVE MENU -->
 
 <div id="main-container-menu" class="object">
     <div class="container-menu">
@@ -141,21 +146,32 @@
         <div id="main-container-image">
 
             <section class="work">
+                <?php
+                /** @var Project $project */
+                foreach ( $projects as $project) :
+                ?>
+                    <figure class="white">
+                        <a href="#">
+                            <img src="medias/<?= $project->getImage() ?>" alt="<?= $project->getTitle() ?>"/>
+                            <dl>
+                                <dt><?= $project->getTitle() ?></dt>
+                                <dd><?= $project->getDescription() ?></dd>
+                            </dl>
+                        </a>
+                        <div id="wrapper-part-info">
+                            <div class="part-info-image">
+                                <img src="img/icons/<?= $project->getType()->getImgSmall() ?>"
+                                     alt="<?= $project->getType()->getName() ?>" width="28" height="28"/>
+                            </div>
+                            <div id="part-info">Infographic - Knights</div>
+                        </div>
+                    </figure>
 
-                <figure class="white">
-                    <a href="#">
-                        <img src="site/medias/ThumbsPortfolioZoominTV_Knights.jpg" alt=""/>
-                        <dl>
-                            <dt>Infographic - Knights</dt>
-                            <dd>Infographie classée dans "Histoire".</dd>
-                        </dl>
-                    </a>
-                    <div id="wrapper-part-info">
-                        <div class="part-info-image"><img src="site/medias/Adobe-Ae-icon-small.png" alt="" width="28"
-                                                          height="28"/></div>
-                        <div id="part-info">Infographic - Knights</div>
-                    </div>
-                </figure>
+
+                <?php
+                endforeach;
+                ?>
+
 
                 <figure class="white">
                     <a href="#">
@@ -360,8 +376,7 @@
 
     <div id="wrapper-thank">
         <div class="thank">
-            <!-- <div class="thank-text">bu<span style="letter-spacing:-5px;">rs</span>tfly</div> -->
-            <div class="thank-text"><img src="site/medias/	ZoominTV_Logo_RGB_4lightBG.png" alt="ZoominTV"
+            <div class="thank-text"><img src="medias/logo_light.png" alt="ZoominTV"
                                          style="height: 80px; margin-bottom: 60px;"/></div>
         </div>
     </div>

@@ -1,0 +1,19 @@
+{
+    "name": "maps_red/am-zoomin-tv",
+    "require": {
+        "maps_red/orm" : "dev-master",
+        "cocur/slugify": "^2.2",
+        "pagerfanta/pagerfanta": "^1.0"
+    },
+    "authors": [
+        {
+            "name": "Francois",
+            "email": "maps_red@yahoo.fr"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": { "ORM\\": "ORM/" }
+    }
+
+}

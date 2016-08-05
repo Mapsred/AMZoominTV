@@ -33,6 +33,12 @@ class Project extends MainEntity
 	/** @var \DateTime $deleted_at */
 	private $deleted_at;
 
+    public function __construct()
+    {
+        $this->created_at = new \DateTime();
+        $this->updated_at = new \DateTime();
+    }
+
 	/**
 	 * @return int
 	 */

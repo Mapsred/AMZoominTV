@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Maps_red
+ * Date: 06/08/2016
+ * Time: 01:08
+ */
+
+if (!$argv[1]) {
+    echo "a password must be provided";
+    exit;
+}
+
+echo password_hash($argv[1], PASSWORD_BCRYPT)."\n";

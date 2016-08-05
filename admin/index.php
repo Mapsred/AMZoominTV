@@ -26,6 +26,7 @@ if (isset($_POST['username'])) {
         $session->__set("username", $_POST['username']);
         Session::redirecting("project.php");
     }
+
 }
 
 ?>

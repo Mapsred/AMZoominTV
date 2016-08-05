@@ -77,12 +77,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Mapsred/ORM.git",
-                "reference": "efde60132272e36dc8231c77b3a308d14dcd91f7"
+                "reference": "eda6018dbfb311c8bd8f5948d42da1307b957fc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Mapsred/ORM/zipball/efde60132272e36dc8231c77b3a308d14dcd91f7",
-                "reference": "efde60132272e36dc8231c77b3a308d14dcd91f7",
+                "url": "https://api.github.com/repos/Mapsred/ORM/zipball/eda6018dbfb311c8bd8f5948d42da1307b957fc5",
+                "reference": "eda6018dbfb311c8bd8f5948d42da1307b957fc5",
                 "shasum": ""
             },
             "type": "library",
@@ -98,7 +98,7 @@
                     "email": "maps_red@yahoo.fr"
                 }
             ],
-            "time": "2016-08-05 19:22:43"
+            "time": "2016-08-05 22:59:34"
         },
         {
             "name": "pagerfanta/pagerfanta",

@@ -479,7 +479,7 @@ body, html {
     margin-top       : 50px;
 }
 
-.thank, .oldnew {
+.thank, .oldnew, .pagination {
     position    : relative;
     width       : 1200px;
     left        : 50%;
@@ -487,6 +487,7 @@ body, html {
     height      : 100%;
     top         : 0;
 }
+
 
 .thank-text {
     float                   : left;
@@ -502,21 +503,47 @@ body, html {
     width                   : 100%;
 }
 
-.wrapper-oldnew-prev, .wrapper-oldnew-next {
+.wrapper-oldnew-prev, .prev {
     float : left;
-    width : 50%;
+    width : 40%;
 }
 
-#oldnew-prev, #oldnew-next {
+.wrapper-oldnew-next, .next {
+    float : right;
+    width : 40%;
+}
+
+.disabled span {
+    color: #777;
+    cursor: not-allowed!important;
+}
+
+.pagination ul li {
+    height : 100%;
+    display : none;
+}
+
+.pagination ul li.next, .pagination ul li.prev {
+    display : inline;
+}
+.pagination ul li a {
+    width :20%;
+}
+
+#oldnew-prev, #oldnew-next, .prev span, .prev a, .next span, .next a {
     width   : 43px;
     height  : 43px;
     opacity : 0.5;
     cursor  : pointer;
 }
 
-#oldnew-next { background : url(../img/next.svg) no-repeat; margin-left : 25px; float : left; }
+#oldnew-next, .next span, .next a {
+    background : url(../img/next.svg) no-repeat; margin-left : 25px; float : left;
+}
 
-#oldnew-prev { background : url(../img/prev.svg) no-repeat; margin-right : 25px; float : right; }
+#oldnew-prev, .prev span, .prev a {
+    background : url(../img/prev.svg) no-repeat; margin-right : 25px; float : right;
+}
 
 /*----------------------------*/
 /* FOOTER */

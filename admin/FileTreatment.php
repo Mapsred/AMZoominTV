@@ -62,7 +62,8 @@ class FileTreatment
      */
     private function isOnSize()
     {
-        return $this->photo["size"] < 500000;
+        //10 485 760 - 10MO
+        return $this->photo["size"] < 10485760;
     }
 
     /**

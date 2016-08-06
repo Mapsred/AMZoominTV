@@ -4,27 +4,27 @@
  * Created by PhpStorm
  * User: Maps_red
  * Date: 5/08/16
- * Time: 18:36
+ * Time: 23:01
  */
 
 namespace ORM\Repository;
 
-use ORM\Entity\Project;
+use ORM\Entity\User;
 use Maps_red\ORM\Abstracts\MainRepository;
 
-class ProjectRepository extends MainRepository
+class UserRepository extends MainRepository
 {
 	/**
-	 * ProjectRepository constructor.
+	 * UserRepository constructor.
 	 */
 	public function __construct()
 	{
-		$database = "project";
-		parent::__construct($database, "ORM\\Entity\\Project");
+		$database = "user";
+		parent::__construct($database, "ORM\\Entity\\User");
 	}
 
 	/**
-	 * @return Project|null.
+	 * @return User|null.
 	 */
 	public function findOne()
 	{
@@ -33,7 +33,7 @@ class ProjectRepository extends MainRepository
 
 	/**
 	 * @param $id
-	 * @return Project|null
+	 * @return User|null
 	 */
 	public function findOneById($id)
 	{
@@ -43,7 +43,7 @@ class ProjectRepository extends MainRepository
 	/**
 	 * @param array $array
 	 * @param array $order
-	 * @return Project|null
+	 * @return User|null
 	 */
 	public function findOneBy(array $array, array $order = null)
 	{
@@ -51,11 +51,11 @@ class ProjectRepository extends MainRepository
 	}
 
 	/**
-	 * @param Project $project
-	 * @return Project|null.
+	 * @param User $user
+	 * @return User|null.
 	 */
-	public function save($project)
+	public function save($user)
 	{
-		return parent::save($project);
+		return parent::save($user);
 	}
 }

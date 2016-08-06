@@ -3,8 +3,8 @@
 /**
  * Created by PhpStorm
  * User: Maps_red
- * Date: 5/08/16
- * Time: 18:48
+ * Date: 6/08/16
+ * Time: 09:05
  */
 
 namespace ORM\Entity;
@@ -35,7 +35,6 @@ class Project extends MainEntity
 
     public function __construct()
     {
-        $this->created_at = new \DateTime();
         $this->updated_at = new \DateTime();
     }
 
@@ -165,7 +164,7 @@ class Project extends MainEntity
 	/**
 	 * @return \DateTime
 	 */
-	 public function getUpdated_at()
+	 public function getUpdatedAt()
 	{
 		return $this->updated_at;
 	}
@@ -174,7 +173,7 @@ class Project extends MainEntity
 	 * @param \DateTime $updated_at
 	 * @return Project
 	 */
-	 public function setUpdated_at($updated_at)
+	 public function setUpdatedAt($updated_at)
 	{
 		$this->updated_at = $updated_at;
 
@@ -184,7 +183,7 @@ class Project extends MainEntity
 	/**
 	 * @return \DateTime
 	 */
-	 public function getCreated_at()
+	 public function getCreatedAt()
 	{
 		return $this->created_at;
 	}
@@ -193,7 +192,7 @@ class Project extends MainEntity
 	 * @param \DateTime $created_at
 	 * @return Project
 	 */
-	 public function setCreated_at($created_at)
+	 public function setCreatedAt($created_at)
 	{
 		$this->created_at = $created_at;
 
@@ -203,7 +202,7 @@ class Project extends MainEntity
 	/**
 	 * @return \DateTime
 	 */
-	 public function getDeleted_at()
+	 public function getDeletedAt()
 	{
 		return $this->deleted_at;
 	}
@@ -212,7 +211,7 @@ class Project extends MainEntity
 	 * @param \DateTime $deleted_at
 	 * @return Project
 	 */
-	 public function setDeleted_at($deleted_at)
+	 public function setDeletedAt($deleted_at)
 	{
 		$this->deleted_at = $deleted_at;
 

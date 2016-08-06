@@ -22,6 +22,6 @@ foreach ($types as $name) {
         $type = new Type();
     }
     $slug = $slugify->slugify($name);
-    $type->setName($name)->setSlug($slug)->setImg($slug.".png")->setImgSmall($slug."-small.png");
+    $type->setName($name)->setSlug($slug)->setImg($slug.".png");
     $repo->save($type);
 }

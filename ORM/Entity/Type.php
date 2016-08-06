@@ -19,8 +19,6 @@ class Type extends MainEntity
 	private $name;
 	/** @var string $img */
 	private $img;
-	/** @var string $img_small */
-	private $img_small;
 	/** @var string $slug */
 	private $slug;
 
@@ -77,25 +75,6 @@ class Type extends MainEntity
 	 public function setImg($img)
 	{
 		$this->img = $img;
-
-		return $this;
-	}
-
-	/**
-	 * @return string
-	 */
-	 public function getImgSmall()
-	{
-		return $this->img_small;
-	}
-
-	/**
-	 * @param string $img_small
-	 * @return Type
-	 */
-	 public function setImgSmall($img_small)
-	{
-		$this->img_small = $img_small;
 
 		return $this;
 	}

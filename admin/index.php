@@ -24,7 +24,7 @@ if (isset($_POST['username'])) {
         $session->destroy();
     } else {
         $session->__set("username", $_POST['username']);
-        Session::redirecting("project.php");
+        Session::redirecting("project.php", 0);
     }
 
 }

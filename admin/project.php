@@ -22,7 +22,7 @@ $types = $typeRepo->findAll();
 
 $session = Session::getInstance();
 if ($session->verifySession() || !$session->__isset("username")) {
-    Session::redirecting("./");
+    Session::redirecting("./", 0);
 }
 
 if (isset($_POST['title'])) {

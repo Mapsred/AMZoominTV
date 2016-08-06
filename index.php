@@ -11,12 +11,22 @@ use ORM\Repository\TypeRepository;
 use ORM\Repository\ProjectRepository;
 use ORM\Entity\Type;
 use ORM\Entity\Project;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\View\TwitterBootstrapView;
 
 $typeRepo = new TypeRepository();
 $projectRepo = new ProjectRepository();
 $types = $typeRepo->findBy([], ['id' => "DESC"]);
 $projects = $projectRepo->findBy([], ['id' => "DESC"]);
 
+$adapter = new ArrayAdapter($projects);
+$pagerfanta = new Pagerfanta($adapter);
+
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+$pagerfanta->setMaxPerPage(12)->setCurrentPage($currentPage);
+
+$projects = $pagerfanta->getCurrentPageResults();
 ?>
 
 <!DOCTYPE HTML>
@@ -29,17 +39,17 @@ $projects = $projectRepo->findBy([], ['id' => "DESC"]);
     <!-- Behavioral Meta Data -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="icon" type="image/png" href="site/img/small-logo-01.png">
+    <link rel="icon" type="image/png" href="img/small-logo-01.png">
     <link
         href='http://fonts.googleapis.com/css?family=Roboto:400,900,900italic,700italic,700,500italic,400italic,500,300italic,300'
         rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/pagerfanta.css">
 
 </head>
 
 <body>
-
 <!-- CACHE -->
 <div class="cache"></div>
 
@@ -152,7 +162,7 @@ $projects = $projectRepo->findBy([], ['id' => "DESC"]);
                 ?>
                     <figure class="white">
                         <a href="#">
-                            <img src="medias/<?= $project->getImage() ?>" alt="<?= $project->getTitle() ?>"/>
+                            <img src="medias/projects/<?= $project->getImage() ?>" alt="<?= $project->getTitle() ?>"/>
                             <dl>
                                 <dt><?= $project->getTitle() ?></dt>
                                 <dd><?= $project->getDescription() ?></dd>
@@ -166,196 +176,9 @@ $projects = $projectRepo->findBy([], ['id' => "DESC"]);
                             <div id="part-info">Infographic - Knights</div>
                         </div>
                     </figure>
-
-
                 <?php
                 endforeach;
                 ?>
-
-
-                <figure class="white">
-                    <a href="#">
-                        <img src="site/medias/ThumbsPortfolioZoominTV_Dinosaurs.jpg" alt=""/>
-                        <dl>
-                            <dt>Infographic - Dinosaurs</dt>
-                            <dd>Infographie classée dans "Bilogie".</dd>
-                        </dl>
-                    </a>
-                    <div id="wrapper-part-info">
-                        <div class="part-info-image"><img src="site/medias/Adobe-Ae-icon-small.png" alt="" width="28"
-                                                          height="28"/></div>
-                        <div id="part-info">Infographic - Dinosaurs</div>
-                    </div>
-                </figure>
-
-                <figure class="white">
-                    <a href="#">
-                        <img src="site/medias/ThumbsPortfolioZoominTV_Perfume.jpg" alt=""/>
-                        <dl>
-                            <dt>Infographic - Perfume</dt>
-                            <dd>Infographie classée dans "Bilogie".</dd>
-                        </dl>
-                    </a>
-                    <div id="wrapper-part-info">
-                        <div class="part-info-image"><img src="site/medias/Adobe-Ae-icon-small.png" alt="" width="28"
-                                                          height="28"/></div>
-                        <div id="part-info">Infographic - Perfume</div>
-                    </div>
-                </figure>
-
-                <figure class="white">
-                    <a href="#">
-                        <img src="site/medias/ThumbsPortfolioZoominTV_SuperHeroes.jpg" alt=""/>
-                        <dl>
-                            <dt>Infographic - Super Heroes</dt>
-                            <dd>Infographie classée dans "Bilogie".</dd>
-                        </dl>
-                    </a>
-                    <div id="wrapper-part-info">
-                        <div class="part-info-image"><img src="site/medias/Adobe-Ae-icon-small.png" alt="" width="28"
-                                                          height="28"/></div>
-                        <div id="part-info">Infographic - Super Heroes</div>
-                    </div>
-                </figure>
-
-                <figure class="white">
-                    <a href="#">
-                        <img src="site/medias/ThumbsPortfolioZoominTV_NailBiting.jpg" alt=""/>
-                        <dl>
-                            <dt>Infographic - Nails Biting</dt>
-                            <dd>Infographie classée dans "Bilogie".</dd>
-                        </dl>
-                    </a>
-                    <div id="wrapper-part-info">
-                        <div class="part-info-image"><img src="site/medias/Adobe-Ae-icon-small.png" alt="" width="28"
-                                                          height="28"/></div>
-                        <div id="part-info">Infographic - Nails Biting</div>
-                    </div>
-                </figure>
-
-                <figure class="white">
-                    <a href="#">
-                        <img src="site/medias/ThumbsPortfolioZoominTV_Slugs&Salt.jpg" alt=""/>
-                        <dl>
-                            <dt>Infographic - Sulgs and Salt</dt>
-                            <dd>Infographie classée dans "Bilogie".</dd>
-                        </dl>
-                    </a>
-                    <div id="wrapper-part-info">
-                        <div class="part-info-image"><img src="site/medias/Adobe-Ae-icon-small.png" alt="" width="28"
-                                                          height="28"/></div>
-                        <div id="part-info">Infographic - Slugs and Salt</div>
-                    </div>
-                </figure>
-
-                <figure class="white">
-                    <a href="details.html">
-                        <img src="site/medias/ThumbsPortfolioZoominTV_BubbleMan.jpg" alt=""/>
-                        <dl>
-                            <dt>Bubble Man</dt>
-                            <dd>Thumbnail sur un SDF faisant des bulles.</dd>
-                        </dl>
-                    </a>
-                    <div id="wrapper-part-info">
-                        <div class="part-info-image"><img src="site/medias/Adobe-Img-icon-small.png" alt="" width="28"
-                                                          height="28"/></div>
-                        <div id="part-info">Thumbnail</div>
-                    </div>
-                </figure>
-
-                <figure class="white">
-                    <a href="#">
-                        <img src="site/medias/ThumbsPortfolioZoominTV_SnapchatLayouts.jpg" alt=""/>
-                        <dl>
-                            <dt>Snapchat Layouts</dt>
-                            <dd>Détourage des icônes et remplacement d'une partie de l'image par une mise en
-                                situation.
-                            </dd>
-                        </dl>
-                    </a>
-                    <div id="wrapper-part-info">
-                        <div class="part-info-image"><img src="site/medias/Adobe-Ps-icon-small.png" alt="" width="28"
-                                                          height="28"/></div>
-                        <div id="part-info">Small Graphic</div>
-                    </div>
-                </figure>
-
-                <figure class="white">
-                    <a href="#">
-                        <img src="site/medias/ThumbsPortfolioZoominTV_60S translation.jpg" alt=""/>
-                        <dl>
-                            <dt>60 seconds Graphic</dt>
-                            <dd>Traduction d'un leader directement dans After Effects.</dd>
-                        </dl>
-                    </a>
-                    <div id="wrapper-part-info">
-                        <div class="part-info-image"><img src="site/medias/Adobe-Ae-icon-small.png" alt="" width="28"
-                                                          height="28"/></div>
-                        <div id="part-info">60 seconds Graphic</div>
-                    </div>
-                </figure>
-
-                <figure class="white">
-                    <a href="#">
-                        <img src="site/medias/ThumbsPortfolioZoominTV_CupidArrow.jpg" alt=""/>
-                        <dl>
-                            <dt>Cupid's Arrow Animation</dt>
-                            <dd>Réalisation d'une petite animation sous After Effects.</dd>
-                        </dl>
-                    </a>
-                    <div id="wrapper-part-info">
-                        <div class="part-info-image"><img src="site/medias/Adobe-Ae-icon-small.png" alt="" width="28"
-                                                          height="28"/></div>
-                        <div id="part-info">Cupid's Arrow Animation</div>
-                    </div>
-                </figure>
-
-                <figure class="white">
-                    <a href="#">
-                        <img src="site/medias/ThumbsPortfolioZoominTV_CursedPictures.jpg" alt=""/>
-                        <dl>
-                            <dt>Cursed Pictures</dt>
-                            <dd>Petite animation visant à faire part d'une vidéo reportage.</dd>
-                        </dl>
-                    </a>
-                    <div id="wrapper-part-info">
-                        <div class="part-info-image"><img src="site/medias/Adobe-Ae-icon-small.png" alt="" width="28"
-                                                          height="28"/></div>
-                        <div id="part-info">Cursed Pictures</div>
-                    </div>
-                </figure>
-
-                <figure class="white">
-                    <a href="#">
-                        <img src="site/medias/ThumbsPortfolioZoominTV_ESLBenelux.jpg" alt=""/>
-                        <dl>
-                            <dt>Animation ESL Benelux</dt>
-                            <dd>ESL est le leader mondial des plateformes e-sports. L'animation faisait lieu de
-                                transition/titre.
-                            </dd>
-                        </dl>
-                    </a>
-                    <div id="wrapper-part-info">
-                        <div class="part-info-image"><img src="site/medias/Adobe-Ae-icon-small.png" alt="" width="28"
-                                                          height="28"/></div>
-                        <div id="part-info">Animation ESL Benelux</div>
-                    </div>
-                </figure>
-
-                <figure class="white">
-                    <a href="#">
-                        <img src="site/medias/ThumbsPortfolioZoominTV_FootballersCutouts.jpg" alt=""/>
-                        <dl>
-                            <dt>Footballers cutouts</dt>
-                            <dd>Détourage façon collage de footballers pour une vidéo d'actualité.</dd>
-                        </dl>
-                    </a>
-                    <div id="wrapper-part-info">
-                        <div class="part-info-image"><img src="site/medias/Adobe-Ps-icon-small.png" alt="" width="28"
-                                                          height="28"/></div>
-                        <div id="part-info">Footballers cutouts</div>
-                    </div>
-                </figure>
 
             </section>
 
@@ -363,15 +186,18 @@ $projects = $projectRepo->findBy([], ['id' => "DESC"]);
 
     </div>
 
+    <?php
+    $routeGenerator = function($page) {
+        return './?page='.$page;
+    };
+    $view = new TwitterBootstrapView();
+    $options = ['prev_message' => ' ', 'next_message' => '', "css_container_class " => "oldnew"];
+    $paginator = $view->render($pagerfanta, $routeGenerator, $options);
+
+    ?>
+
     <div id="wrapper-oldnew">
-        <div class="oldnew">
-            <div class="wrapper-oldnew-prev">
-                <div id="oldnew-prev"></div>
-            </div>
-            <div class="wrapper-oldnew-next">
-                <div id="oldnew-next"></div>
-            </div>
-        </div>
+            <?= $paginator ?>
     </div>
 
     <div id="wrapper-thank">

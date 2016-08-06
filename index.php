@@ -6,6 +6,7 @@
  * Time: 22:35
  */
 require_once(__DIR__."/app/bootstrap.php");
+require_once(__DIR__."/admin/Session.php");
 
 use ORM\Repository\TypeRepository;
 use ORM\Repository\ProjectRepository;
@@ -24,7 +25,12 @@ $adapter = new ArrayAdapter($projects);
 $pagerfanta = new Pagerfanta($adapter);
 
 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
-$pagerfanta->setMaxPerPage(12)->setCurrentPage($currentPage);
+$pagerfanta->setMaxPerPage(12);
+if ($currentPage > $pagerfanta->getNbPages()) {
+    Session::redirecting("./", 0);
+}
+
+$pagerfanta->setCurrentPage($currentPage);
 
 $projects = $pagerfanta->getCurrentPageResults();
 ?>
@@ -170,7 +176,7 @@ $projects = $pagerfanta->getCurrentPageResults();
                         </a>
                         <div id="wrapper-part-info">
                             <div class="part-info-image">
-                                <img src="img/icons/<?= $project->getType()->getImgSmall() ?>"
+                                <img src="img/icons/<?= $project->getType()->getImg() ?>"
                                      alt="<?= $project->getType()->getName() ?>" width="28" height="28"/>
                             </div>
                             <div id="part-info">Infographic - Knights</div>

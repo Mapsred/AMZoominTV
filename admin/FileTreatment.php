@@ -13,7 +13,7 @@
 class FileTreatment
 {
     /** @var string $targetDir */
-    private $targetDir = __DIR__."/../medias/";
+    private $targetDir = __DIR__."/../medias/projects/";
     /** @var string $targetFile */
     private $targetFile;
     /** @var array $photo */

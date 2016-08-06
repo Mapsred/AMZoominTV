@@ -139,11 +139,11 @@ class Session
                 <html>
                     <head>
                         <meta charset="UTF-8" />
-                        <meta http-equiv="refresh" content="1;url=%1$s" />
+                        <meta http-equiv="refresh" content="%s;url=%s" />
                     </head>
                     <body>
                     </body>
-                </html>',
+                </html>',$time,
             htmlspecialchars($url, $time, 'UTF-8')
         );
     }

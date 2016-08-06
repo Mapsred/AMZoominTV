@@ -30,13 +30,13 @@ if (isset($_POST['title'])) {
     $project = $projectRepo->findOneBy(['title' => $_POST['title']]);
     if ($project) {
         $session->addFlashBag("danger", "Ce projet existe déjà");
-        Session::redirecting("./project.php");
+        Session::redirecting($_SERVER['REQUEST_URI']);
     }
     $project = new Project();
     $type = $typeRepo->findOneById($_POST['type']);
     if (!$type) {
         $session->addFlashBag("danger", "Le type sélectionné n'existe pas");
-        Session::redirecting("./project.php");
+        Session::redirecting($_SERVER['REQUEST_URI']);
     }
     $slug = $slugify->slugify($_POST['title']);
     $project->setTitle($_POST['title'])->setDescription($_POST['desc'])->setSlug($slug)->setType($type);
@@ -44,7 +44,7 @@ if (isset($_POST['title'])) {
     $fileTreatment = new FileTreatment($_FILES['file']);
     if (is_string($error = $fileTreatment->isValid())) {
         $session->addFlashBag("danger", $error);
-        Session::redirecting("./project.php");
+        Session::redirecting($_SERVER['REQUEST_URI']);
     } else {
         $fileTreatment->moveFile();
     }
@@ -53,9 +53,8 @@ if (isset($_POST['title'])) {
     $projectRepo->save($project);
 
     $session->addFlashBag("success", "Le projet a bien été ajouté");
-    Session::redirecting("./project.php");
+    Session::redirecting($_SERVER['REQUEST_URI']);
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -129,5 +128,3 @@ if (isset($_POST['title'])) {
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-

@@ -147,4 +147,40 @@ class Session
             htmlspecialchars($url, $time, 'UTF-8')
         );
     }
+
+    /**
+     * @param $type
+     * @param $message
+     */
+    public function addFlashBag($type, $message)
+    {
+        $_SESSION['flash'][$type] = $message;
+    }
+
+    public function getFlashBag()
+    {
+        $flashs = self::FlashBagAction();
+
+        foreach ($flashs as $key => $flash) {
+            echo "<div class='alert alert-$key' role='alert'>$flash</div>";
+        }
+    }
+
+    /**
+     * @return array
+     */
+    private function FlashBagAction()
+    {
+        $flashs = [];
+        if (isset($_SESSION['flash'])) {
+            foreach ($_SESSION['flash'] as $key => $error) {
+                $flashs[$key] = $error;
+            }
+            unset($_SESSION['flash']);
+        }
+
+        return $flashs;
+    }
+
+
 }

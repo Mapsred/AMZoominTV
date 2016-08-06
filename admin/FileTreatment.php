@@ -89,8 +89,19 @@ class FileTreatment
         return $this->isExisting() ? true : move_uploaded_file($this->photo["tmp_name"], $this->targetFile);
     }
 
+    /**
+     * @return string
+     */
     public function getTargerFile()
     {
         return $this->targetFile;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImageName()
+    {
+        return basename($this->photo["name"]);
     }
 }

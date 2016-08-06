@@ -12,7 +12,7 @@ require_once(__DIR__."/Session.php");
 
 $session = Session::getInstance();
 if ($session->verifySession()) {
-    Session::redirecting("/admin");
+    Session::redirecting("./");
 }
 
 $errors = [];

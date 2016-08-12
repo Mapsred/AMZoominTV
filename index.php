@@ -179,7 +179,7 @@ $projects = $pagerfanta->getCurrentPageResults();
                                 <img src="img/icons/<?= $project->getType()->getImg() ?>"
                                      alt="<?= $project->getType()->getName() ?>" width="28" height="28"/>
                             </div>
-                            <div id="part-info">Infographic - Knights</div>
+                            <div id="part-info"><?= $project->getTitle() ?></div>
                         </div>
                     </figure>
                 <?php

@@ -6,3 +6,4 @@ media
 .old
 /medias/projects/
 /app/config.php
+/tests.php

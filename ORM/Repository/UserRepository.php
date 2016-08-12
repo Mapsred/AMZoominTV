@@ -20,7 +20,7 @@ class UserRepository extends MainRepository
 	public function __construct()
 	{
 		$database = "user";
-		parent::__construct($database, "ORM\\Entity\\User");
+		parent::__construct($database, "ORM\\Entity\\User", "ORM\\Repository\\UserRepository");
 	}
 
 	/**
@@ -42,12 +42,11 @@ class UserRepository extends MainRepository
 
 	/**
 	 * @param array $array
-	 * @param array $order
 	 * @return User|null
 	 */
-	public function findOneBy(array $array, array $order = null)
+	public function findOneBy(array $array)
 	{
-		return parent::findOneBy($array, $order);
+		return parent::findOneBy($array);
 	}
 
 	/**

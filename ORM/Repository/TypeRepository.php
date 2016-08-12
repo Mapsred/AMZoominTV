@@ -20,7 +20,7 @@ class TypeRepository extends MainRepository
 	public function __construct()
 	{
 		$database = "type";
-		parent::__construct($database, "ORM\\Entity\\Type");
+		parent::__construct($database, "ORM\\Entity\\Type", "ORM\\Repository\\TypeRepository");
 	}
 
 	/**
@@ -42,12 +42,11 @@ class TypeRepository extends MainRepository
 
 	/**
 	 * @param array $array
-	 * @param array $order
 	 * @return Type|null
 	 */
-	public function findOneBy(array $array, array $order = null)
+	public function findOneBy(array $array)
 	{
-		return parent::findOneBy($array, $order);
+		return parent::findOneBy($array);
 	}
 
 	/**

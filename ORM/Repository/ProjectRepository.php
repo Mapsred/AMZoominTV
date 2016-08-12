@@ -9,6 +9,7 @@
 
 namespace ORM\Repository;
 
+use Maps_red\ORM\Builder\QueryBuilder;
 use ORM\Entity\Project;
 use Maps_red\ORM\Abstracts\MainRepository;
 
@@ -20,7 +21,7 @@ class ProjectRepository extends MainRepository
 	public function __construct()
 	{
 		$database = "project";
-		parent::__construct($database, "ORM\\Entity\\Project");
+		parent::__construct($database, "ORM\\Entity\\Project", "ORM\\Repository\\ProjectRepository" );
 	}
 
 	/**
@@ -42,12 +43,11 @@ class ProjectRepository extends MainRepository
 
 	/**
 	 * @param array $array
-	 * @param array $order
 	 * @return Project|null
 	 */
-	public function findOneBy(array $array, array $order = null)
+	public function findOneBy(array $array)
 	{
-		return parent::findOneBy($array, $order);
+		return parent::findOneBy($array);
 	}
 
 	/**
@@ -58,4 +58,41 @@ class ProjectRepository extends MainRepository
 	{
 		return parent::save($project);
 	}
+
+    /**
+     * @param object $object
+     * @param array $data
+     * @return Project
+     */
+    public static function hydrate($object, array $data)
+    {
+        return self::customHydrate($object, $data, ["type"], ["TypeRepository"]);
+    }
+
+    /**
+     * @param $name
+     * @return array
+     */
+    public function findByTypeName($name)
+    {
+        return $this->createQueryBuilder()
+            ->leftJoin("type")
+            ->where("type.name = $name")
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param $name
+     * @return Project
+     */
+    public function findOneByTypeName($name)
+    {
+        return $this->createQueryBuilder()
+            ->leftJoin("type")
+            ->where("type.name = $name")
+            ->getQuery()
+            ->getResult(QueryBuilder::QUERY_UNIQUE);
+    }
+
 }

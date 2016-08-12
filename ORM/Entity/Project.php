@@ -129,11 +129,12 @@ class Project extends MainEntity
 
     /**
      * @param int|Type $type
+     * @param boolean $object
      * @return Project
      */
-    public function setType($type)
+    public function setType($type, $object = false)
     {
-        if ($type instanceof Type) {
+        if ($type instanceof Type  && !$object) {
             $this->type = $type->getId();
         } else {
             $this->type = $type;

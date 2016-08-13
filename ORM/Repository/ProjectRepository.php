@@ -95,4 +95,18 @@ class ProjectRepository extends MainRepository
             ->getResult(QueryBuilder::QUERY_UNIQUE);
     }
 
+    /**
+     * @param $slug
+     * @return array
+     */
+    public function findByTypeSlug($slug)
+    {
+        return $this->createQueryBuilder()
+            ->leftJoin("type")
+            ->where("type.slug = $slug")
+            ->getQuery()
+            ->getResult();
+    }
+
+
 }

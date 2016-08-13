@@ -7,6 +7,7 @@
  */
 require_once(__DIR__."/app/bootstrap.php");
 require_once(__DIR__."/admin/Session.php");
+require_once(__DIR__."/Router.php");
 
 use ORM\Repository\TypeRepository;
 use ORM\Repository\ProjectRepository;
@@ -19,7 +20,20 @@ use Pagerfanta\View\TwitterBootstrapView;
 $typeRepo = new TypeRepository();
 $projectRepo = new ProjectRepository();
 $types = $typeRepo->findBy([], ['id' => "DESC"]);
-$projects = $projectRepo->findBy([], ['id' => "DESC"]);
+
+if (isset($_GET['type'])) {
+    $type = $_GET['type'];
+    if ($type == "old") {
+        $projects = $projectRepo->findBy([], ['id' => "ASC"]);
+    }else if ($type == "new") {
+        $projects = $projectRepo->findBy([], ['id' => "DESC"]);
+    }else {
+        $projects = $projectRepo->findByTypeSlug($type);
+    }
+}
+if (!isset($projects)) {
+    $projects = $projectRepo->findBy([], ['id' => "DESC"]);
+}
 
 $adapter = new ArrayAdapter($projects);
 $pagerfanta = new Pagerfanta($adapter);
@@ -33,6 +47,12 @@ if ($currentPage > $pagerfanta->getNbPages()) {
 $pagerfanta->setCurrentPage($currentPage);
 
 $projects = $pagerfanta->getCurrentPageResults();
+$routeGenerator = function ($page) {
+    return Router::paginator($page);
+};
+$view = new TwitterBootstrapView();
+$options = ['prev_message' => ' ', 'next_message' => '', "css_container_class " => "oldnew"];
+$paginator = $view->render($pagerfanta, $routeGenerator, $options);
 ?>
 
 <!DOCTYPE HTML>
@@ -40,7 +60,7 @@ $projects = $pagerfanta->getCurrentPageResults();
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Burstfly - Free HTML5 Template</title>
+    <title>Amélie Mathieu - ZoomINTV</title>
 
     <!-- Behavioral Meta Data -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -62,7 +82,11 @@ $projects = $pagerfanta->getCurrentPageResults();
 <!-- HEADER -->
 <div id="wrapper-header">
     <div id="main-header" class="object">
-        <div class="logo"><img src="medias/logo_dark.png" alt="logo" style="height:38px;"></div>
+        <div class="logo">
+            <a href="./">
+                <img src="medias/logo_dark.png" alt="logo" style="height:38px;">
+            </a>
+        </div>
         <div id="main_tip_search">
             <form>
                 <label for="tip_search_input" class="sr-only"></label>
@@ -78,34 +102,29 @@ $projects = $pagerfanta->getCurrentPageResults();
 <div id="wrapper-navbar">
     <div class="navbar object">
         <div id="wrapper-sorting">
-            <div id="wrapper-title-1">
-                <div class="top-rated object">Top-rated</div>
-                <div id="fleche-nav-1"></div>
-            </div>
-
             <div id="wrapper-title-2">
-                <a href="#">
-                    <div class="recent object">Recent</div>
+                <a href="<?= Router::generate(["type" => "new"]) ?>">
+                    <div class="recent object">Récents</div>
                 </a>
-                <div id="fleche-nav-2"></div>
             </div>
 
             <div id="wrapper-title-3">
-                <a href="#">
-                    <div class="oldies object">Oldies</div>
+                <a href="<?= Router::generate(["type" => "old"]) ?>">
+                    <div class="oldies object">Anciens</div>
                 </a>
-                <div id="fleche-nav-3"></div>
             </div>
         </div>
         <div id="wrapper-bouton-icon">
             <?php
             /** @var Type $type */
             foreach ($types as $type): ?>
-                <div id="bouton-psd">
+                <div class="bouton">
+                    <a href="<?= Router::generate(["type" => $type->getSlug()]) ?>">
                     <img src="img/icons/<?= $type->getImg() ?>" alt="<?= $type->getName() ?>"
                          title="<?= $type->getId() ?>">
+                    </a>
                 </div>
-            <?php
+                <?php
             endforeach;
             ?>
         </div>
@@ -164,8 +183,8 @@ $projects = $pagerfanta->getCurrentPageResults();
             <section class="work">
                 <?php
                 /** @var Project $project */
-                foreach ( $projects as $project) :
-                ?>
+                foreach ($projects as $project) :
+                    ?>
                     <figure class="white">
                         <a href="#">
                             <img src="medias/projects/<?= $project->getImage() ?>" alt="<?= $project->getTitle() ?>"/>
@@ -182,7 +201,7 @@ $projects = $pagerfanta->getCurrentPageResults();
                             <div id="part-info"><?= $project->getTitle() ?></div>
                         </div>
                     </figure>
-                <?php
+                    <?php
                 endforeach;
                 ?>
 
@@ -192,18 +211,8 @@ $projects = $pagerfanta->getCurrentPageResults();
 
     </div>
 
-    <?php
-    $routeGenerator = function($page) {
-        return './?page='.$page;
-    };
-    $view = new TwitterBootstrapView();
-    $options = ['prev_message' => ' ', 'next_message' => '', "css_container_class " => "oldnew"];
-    $paginator = $view->render($pagerfanta, $routeGenerator, $options);
-
-    ?>
-
     <div id="wrapper-oldnew">
-            <?= $paginator ?>
+        <?= $paginator ?>
     </div>
 
     <div id="wrapper-thank">

@@ -108,5 +108,25 @@ class ProjectRepository extends MainRepository
             ->getResult();
     }
 
+    /**
+     * @param $string
+     * @return array
+     */
+    public function findByString($string)
+    {
+        $string = "%$string%";
+        return $this->createQueryBuilder()
+            ->leftJoin("type")
+            ->where("type.name LIKE  $string")
+            ->orWhere("type.img LIKE $string ")
+            ->orWhere("type.slug LIKE  $string")
+            ->orWhere("project.title LIKE  $string")
+            ->orWhere("project.description LIKE  $string")
+            ->orWhere("project.image LIKE  $string")
+            ->orWhere("project.slug LIKE  $string")
+            ->getQuery()
+            ->getResult();
+    }
+
 
 }

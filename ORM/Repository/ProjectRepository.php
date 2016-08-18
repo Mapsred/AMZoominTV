@@ -12,6 +12,7 @@ namespace ORM\Repository;
 use Maps_red\ORM\Builder\QueryBuilder;
 use ORM\Entity\Project;
 use Maps_red\ORM\Abstracts\MainRepository;
+use ORM\Entity\Type;
 
 class ProjectRepository extends MainRepository
 {
@@ -115,7 +116,7 @@ class ProjectRepository extends MainRepository
     public function findByString($string)
     {
         $string = "%$string%";
-        return $this->createQueryBuilder()
+        $results = $this->createQueryBuilder()
             ->leftJoin("type")
             ->where("type.name LIKE  $string")
             ->orWhere("type.img LIKE $string ")
@@ -126,6 +127,8 @@ class ProjectRepository extends MainRepository
             ->orWhere("project.slug LIKE  $string")
             ->getQuery()
             ->getResult();
+
+        return $this->removeDeleted($results);
     }
 
     /**
@@ -139,5 +142,37 @@ class ProjectRepository extends MainRepository
             ->getResult();
     }
 
+    /**
+     * @param Project $project
+     * @param int $limit
+     * @return array
+     */
+    public function findBySimilarType(Project $project, $limit = 4)
+    {
+        $results = $this->createQueryBuilder()
+            ->where("project.type = ".$project->getType()->getId())
+            ->andWhere("project.id != ". $project->getId())
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+
+        return $this->removeDeleted($results);
+    }
+
+    /**
+     * @param array $projects
+     * @return array
+     */
+    private function removeDeleted(array $projects)
+    {
+        /** @var Project $project */
+        foreach ($projects as $key => $project) {
+            if (!is_null($project->getDeletedAt())) {
+                unset($projects[$key]);
+            }
+        }
+
+        return $projects;
+    }
 
 }

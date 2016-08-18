@@ -14,11 +14,12 @@ class Router
 {
     /**
      * @param array $params
+     * @param string|null $path
      * @return string
      */
-    public static function generate(array $params)
+    public static function generate(array $params, $path = null)
     {
-        $url = explode("?", $_SERVER['REQUEST_URI'])[0];
+        $url = explode("?", !empty($path) ? $path : $_SERVER['REQUEST_URI'])[0];
         foreach ($params as $key => $param) {
             $params[$key] = sprintf("%s=%s", $key, $param);
         }

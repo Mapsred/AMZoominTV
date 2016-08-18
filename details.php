@@ -19,45 +19,17 @@ use Pagerfanta\View\TwitterBootstrapView;
 
 $typeRepo = new TypeRepository();
 $projectRepo = new ProjectRepository();
+
 $types = $typeRepo->findBy([], ['id' => "DESC"]);
-
-if (isset($_GET['type'])) {
-    $type = $_GET['type'];
-    if ($type == "old") {
-        $projects = $projectRepo->findBy([], ['id' => "ASC"]);
-    }else if ($type == "new") {
-        $projects = $projectRepo->findBy([], ['id' => "DESC"]);
-    }else {
-        $projects = $projectRepo->findByTypeSlug($type);
-    }
+if (isset($_GET['project'])) {
+    $project = $projectRepo->findOneById($_GET['project']);
 }
 
-if (isset($_GET['search'])) {
-    $projects = $projectRepo->findByString($_GET['search']);
+if (!isset($project) || !isset($_GET['project'])) {
+    $project = $projectRepo->findOne();
 }
 
-if (!isset($projects)) {
-    $projects = $projectRepo->findAllNotDeleted();
-}
-
-$adapter = new ArrayAdapter($projects);
-$pagerfanta = new Pagerfanta($adapter);
-
-$currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
-$pagerfanta->setMaxPerPage(12);
-if ($currentPage > $pagerfanta->getNbPages()) {
-    Session::redirecting("./", 0);
-}
-
-$pagerfanta->setCurrentPage($currentPage);
-
-$projects = $pagerfanta->getCurrentPageResults();
-$routeGenerator = function ($page) {
-    return Router::paginator($page);
-};
-$view = new TwitterBootstrapView();
-$options = ['prev_message' => ' ', 'next_message' => '', "css_container_class " => "oldnew"];
-$paginator = $view->render($pagerfanta, $routeGenerator, $options);
+$similars = $projectRepo->findBySimilarType($project);
 ?>
 
 <!DOCTYPE HTML>
@@ -76,8 +48,7 @@ $paginator = $view->render($pagerfanta, $routeGenerator, $options);
         rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/pagerfanta.css">
-
+    <link rel="stylesheet" type="text/css" href="css/details.css">
 </head>
 
 <body>
@@ -93,7 +64,7 @@ $paginator = $view->render($pagerfanta, $routeGenerator, $options);
             </a>
         </div>
         <div id="main_tip_search">
-            <form>
+            <form action="./">
                 <label for="tip_search_input" class="sr-only"></label>
                 <input type="text" name="search" id="tip_search_input" list="search" autocomplete=off required>
             </form>
@@ -108,25 +79,26 @@ $paginator = $view->render($pagerfanta, $routeGenerator, $options);
     <div class="navbar object">
         <div id="wrapper-sorting">
             <div id="wrapper-title-2">
-                <a href="<?= Router::generate(["type" => "new"]) ?>">
+                <a href="<?= Router::generate(["type" => "new"], "./") ?>">
                     <div class="recent object">Récents</div>
                 </a>
             </div>
 
             <div id="wrapper-title-3">
-                <a href="<?= Router::generate(["type" => "old"]) ?>">
+                <a href="<?= Router::generate(["type" => "old"], "./") ?>">
                     <div class="oldies object">Anciens</div>
                 </a>
             </div>
         </div>
+
         <div id="wrapper-bouton-icon">
             <?php
             /** @var Type $type */
             foreach ($types as $type): ?>
                 <div class="bouton">
-                    <a href="<?= Router::generate(["type" => $type->getSlug()]) ?>">
-                    <img src="img/icons/<?= $type->getImg() ?>" alt="<?= $type->getName() ?>"
-                         title="<?= $type->getId() ?>">
+                    <a href="<?= Router::generate(["type" => $type->getSlug()], "./") ?>">
+                        <img src="img/icons/<?= $type->getImg() ?>" alt="<?= $type->getName() ?>"
+                             title="<?= $type->getId() ?>">
                     </a>
                 </div>
                 <?php
@@ -176,7 +148,6 @@ $paginator = $view->render($pagerfanta, $routeGenerator, $options);
     </div>
 </div>
 
-
 <!-- PORTFOLIO -->
 
 <div id="wrapper-container">
@@ -185,45 +156,81 @@ $paginator = $view->render($pagerfanta, $routeGenerator, $options);
 
         <div id="main-container-image">
 
-            <section class="work">
-                <?php
-                /** @var Project $project */
-                foreach ($projects as $project) :
-                    ?>
-                    <figure class="white">
-                        <a href="./details.php?project=<?= $project->getId() ?>">
-                            <img src="medias/projects/<?= $project->getImage() ?>" alt="<?= $project->getTitle() ?>"/>
-                            <dl>
-                                <dt><?= $project->getTitle() ?></dt>
-                                <dd><?= $project->getDescription() ?></dd>
-                            </dl>
-                        </a>
-                        <div id="wrapper-part-info">
-                            <div class="part-info-image">
-                                <img src="img/icons/<?= $project->getType()->getImg() ?>"
-                                     alt="<?= $project->getType()->getName() ?>" width="28" height="28"/>
-                            </div>
-                            <div id="part-info"><?= $project->getTitle() ?></div>
+            <div class="title-item">
+                <div class="title-icon"></div>
+                <div class="title-text"><?= $project->getTitle() ?></div>
+                <div class="title-text-2"><?= $project->getCreatedAt() ?></div>
+            </div>
+
+
+            <div class="work">
+                <figure class="white">
+                    <img src="medias/projects/<?= $project->getImage() ?>" alt="<?= $project->getTitle() ?>"/>
+                    <div id="wrapper-part-info">
+                        <div class="part-info-image"></div>
+                    </div>
+                </figure>
+
+                <div class="wrapper-text-description">
+
+
+                    <div class="wrapper-file">
+                        <div class="icon-file"><img src="img/icons/<?= $project->getType()->getImg() ?>"
+                                                    alt="<?= $project->getType()->getName() ?>"
+                                                    style="width: 21px;height: 21px;"/></div>
+                        <div class="text-file"><?= $project->getType()->getName() ?></div>
+                    </div>
+
+                    <div class="wrapper-desc">
+                        <div class="icon-desc"><img src="img/icon-desc.svg" alt="" width="24" height="24"/></div>
+                        <div class="text-desc"><?= $project->getDescription() ?>
                         </div>
-                    </figure>
+                    </div>
+
+                    <div class="wrapper-download">
+                        <div class="icon-download"><img src="img/icon-download.svg" alt="" width="19" height="26"/>
+                        </div>
+                        <div class="text-download"><a href="#"><b>Télécharger</b></a></div>
+                    </div>
                     <?php
-                endforeach;
-                ?>
+                    if (count($similars) > 0) :
+                        ?>
+                        <div class="wrapper-morefrom">
+                            <div class="text-morefrom">Plus de <?= $project->getType()->getName() ?></div>
+                            <div class="image-morefrom">
+                                <?php
+                                /**
+                                 * @var int $key
+                                 * @var Project $similar
+                                 */
+                                foreach ($similars as $key => $similar):
+                                    ?>
+                                    <a href="./details.php?project=<?= $similar->getId() ?>">
+                                        <div class="image-morefrom-1"><img
+                                                src="medias/projects/<?= $similar->getImage() ?>"
+                                                alt="<?= $similar->getTitle() ?>" width="430" height="330"/>
+                                        </div>
+                                    </a>
 
-            </section>
+                                    <?php
+                                endforeach;
+                                ?>
+                            </div>
+                        </div>
+                        <?php
+                    endif;
 
+                    ?>
+
+                </div>
+            </div>
         </div>
-
     </div>
 
-    <div id="wrapper-oldnew">
-        <?= $paginator ?>
-    </div>
 
     <div id="wrapper-thank">
         <div class="thank">
-            <div class="thank-text"><img src="medias/logo_light.png" alt="ZoominTV"
-                                         style="height: 80px; margin-bottom: 60px;"/></div>
+            <div class="thank-text">bu<span style="letter-spacing:-5px;">rs</span>tfly</div>
         </div>
     </div>
 
@@ -251,6 +258,21 @@ $paginator = $view->render($pagerfanta, $routeGenerator, $options);
                     our RSS or follow us on Facebook, Google+, Pinterest or Dribbble to keep updated.
                 </div>
             </div>
+
+            <div id="row-4f">
+                <div class="text-row-4f"><span
+                        style="font-weight:600;font-size:15px;color:#666;line-height:250%;text-transform:uppercase;letter-spacing:1.5px;">Newsletter</span><br>You
+                    will be informed monthly about the latest content avalaible.
+                </div>
+
+                <div id="main_tip_newsletter">
+                    <form>
+                        <input type="text" name="newsletter" id="tip_newsletter_input" list="newsletter"
+                               autocomplete=off required>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -272,7 +294,6 @@ $paginator = $view->render($pagerfanta, $routeGenerator, $options);
 
 </div>
 
-
 <!-- SCRIPT -->
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -286,7 +307,6 @@ $paginator = $view->render($pagerfanta, $routeGenerator, $options);
 
 
 </body>
-
 
 </html>
 

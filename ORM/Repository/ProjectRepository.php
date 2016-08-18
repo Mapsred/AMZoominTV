@@ -128,5 +128,16 @@ class ProjectRepository extends MainRepository
             ->getResult();
     }
 
+    /**
+     * @return array
+     */
+    public function findAllNotDeleted()
+    {
+        return $this->createQueryBuilder()
+            ->where("deleted_at IS NULL")
+            ->getQuery()
+            ->getResult();
+    }
+
 
 }

@@ -2,31 +2,31 @@
 /**
  * Created by PhpStorm.
  * User: Maps_red
- * Date: 05/08/2016
- * Time: 23:43
+ * Date: 18/08/2016
+ * Time: 21:47
  */
 require_once(__DIR__."/../app/bootstrap.php");
-require_once(__DIR__."/Treatment.php");
+require_once(__DIR__."/FileTreatment.php");
 require_once(__DIR__."/Session.php");
 
+use ORM\Repository\ProjectRepository;
 
 $session = Session::getInstance();
-if ($session->verifySession()) {
+$projectRepo = new ProjectRepository();
+$project = "";
+if (isset($_GET['project'])) {
+    $project = $projectRepo->findOneBy(['id' => $_GET['project']]);
+}
+
+if (isset($_POST['redirect'])) {
     Session::redirecting("./");
 }
 
-$errors = [];
-
-if (isset($_POST['username'])) {
-    $treatment = new Treatment();
-    if (!$treatment->verify($_POST['username'], $_POST['password'])) {
-        $errors['error'] = "Utilisateur ou mot de passe non valide";
-        $session->destroy();
-    } else {
-        $session->__set("username", $_POST['username']);
-        Session::redirecting("project.php", 0);
-    }
-
+if (isset($_POST['delete'])) {
+    $project->setDeletedAt(new DateTime());
+    $projectRepo->save($project);
+    $session->addFlashBag("success", "Le projet a bien été supprimé");
+    Session::redirecting("./");
 }
 
 ?>
@@ -44,23 +44,20 @@ if (isset($_POST['username'])) {
 </head>
 <body>
 <?php include_once(__DIR__."/header.php"); ?>
-
 <div class="row">
     <div class="container">
         <?php $session->getFlashBag(); ?>
         <div class="col-md-offset-2 col-md-10">
-            <p>Veuillez entrer vos identifiants afin d'accéder à l'admin</p>
+            <h1>Suppression du projet <?= $project->getTitle() ?></h1>
         </div>
-        <form method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" method="post" enctype="multipart/form-data"
+              action="<?= $_SERVER['REQUEST_URI'] ?>">
             <div class="form-group">
-                <label for="pseudo">Pseudo</label>
-                <input type="text" class="form-control" id="pseudo" placeholder="Pseudo" name="username">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" name="delete" class="btn btn-danger">Confirmer la suppression</button>
+                    <button type="submit" name="redirect" class="btn btn-info">Ne pas supprimer</button>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" class="form-control" id="password" placeholder="Mot de passe" name="password">
-            </div>
-            <button type="submit" class="btn btn-default">Envoyer</button>
         </form>
     </div>
 </div>

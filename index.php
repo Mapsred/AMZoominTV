@@ -37,7 +37,7 @@ if (isset($_GET['search'])) {
 }
 
 if (!isset($projects)) {
-    $projects = $projectRepo->findBy([], ['id' => "DESC"]);
+    $projects = $projectRepo->findAllNotDeleted();
 }
 
 $adapter = new ArrayAdapter($projects);

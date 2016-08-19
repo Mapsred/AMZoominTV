@@ -183,12 +183,6 @@ $similars = $projectRepo->findBySimilarType($project);
                         <div class="text-desc"><?= $project->getDescription() ?>
                         </div>
                     </div>
-
-                    <div class="wrapper-download">
-                        <div class="icon-download"><img src="img/icon-download.svg" alt="" width="19" height="26"/>
-                        </div>
-                        <div class="text-download"><a href="#"><b>Télécharger</b></a></div>
-                    </div>
                     <?php
                     if (count($similars) > 0) :
                         ?>

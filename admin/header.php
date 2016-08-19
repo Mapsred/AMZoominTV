@@ -58,6 +58,7 @@ $headerProjects = $projectRepo->findAllNotDeleted();
                         ?>
                     </ul>
                 </li>
+                <li><a href="./detail.php">Ajouter un détail</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div>

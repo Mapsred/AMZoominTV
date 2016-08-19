@@ -227,49 +227,7 @@ $paginator = $view->render($pagerfanta, $routeGenerator, $options);
         </div>
     </div>
 
-    <div id="main-container-footer">
-        <div class="container-footer">
-
-            <div id="row-1f">
-                <div class="text-row-1f"><span
-                        style="font-weight:600;font-size:15px;color:#666;line-height:250%;text-transform:uppercase;letter-spacing:1.5px;">What is Burstfly</span><br>Burstfly
-                    is just a blog showcasing hand-picked free themes, design stuff, free fonts and other resources for
-                    web designers.
-                </div>
-            </div>
-
-            <div id="row-2f">
-                <div class="text-row-2f"><span
-                        style="font-weight:600;font-size:15px;color:#666;line-height:250%;text-transform:uppercase;letter-spacing:1.5px;">How does it work</span><br>Burstfly
-                    offers you all the latest freebies found all over the fourth corners without to pay.
-                </div>
-            </div>
-
-            <div id="row-3f">
-                <div class="text-row-3f"><span
-                        style="font-weight:600;font-size:15px;color:#666;line-height:250%;text-transform:uppercase;letter-spacing:1.5px;">Get in touch!</span><br>Subscribe
-                    our RSS or follow us on Facebook, Google+, Pinterest or Dribbble to keep updated.
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div id="wrapper-copyright">
-        <div class="copyright">
-            <div class="copy-text object">Copyright © 2016. Template by <a style="color:#D0D1D4;"
-                                                                           href="http://designscrazed.org/">Dcrazed</a>
-            </div>
-
-            <div class="wrapper-navbouton">
-                <div class="google object">g</div>
-                <div class="facebook object">f</div>
-                <div class="linkin object">i</div>
-                <div class="dribbble object">d</div>
-            </div>
-        </div>
-    </div>
-
+    <?php include_once(__DIR__."/footer.php"); ?>
 </div>
 
 

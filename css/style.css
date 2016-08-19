@@ -55,6 +55,14 @@ ul {
     padding         : 0;
 }
 
+.link-footer {
+    color : #F8A1AA;
+}   
+
+.link-footer:hover {
+    color : #FFFFFF;
+}
+
 /*-------------------------*/
 /* MAIN CLASS TRANSITION FOR EFFECT HOVER*/
 /*-------------------------*/

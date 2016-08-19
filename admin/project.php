@@ -71,53 +71,51 @@ if (isset($_POST['title'])) {
 <body>
 <?php include_once(__DIR__."/header.php"); ?>
 
-<div class="row">
-    <div class="container">
-        <?php $session->getFlashBag(); ?>
-        <div class="col-md-offset-2 col-md-10">
-            <p>Ajout d'un nouveau projet</p>
-        </div>
-        <form class="form-horizontal" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="title" class="col-sm-2 control-label">Titre</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Titre" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="desc" class="col-sm-2 control-label">Description</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="desc" name="desc" placeholder="Description" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="type" class="col-sm-2 control-label">Type</label>
-                <div class="col-sm-10">
-                    <select name="type" id="type" class="form-control">
-                        <?php
-                        /** @var Type $type */
-                        foreach ($types as $type) {
-                            $id = $type->getId();
-                            $name = $type->getName();
-                            echo "<option value='$id'>$name</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="file" class="col-sm-2 control-label">Photo</label>
-                <div class="col-sm-10">
-                    <input type="file" id="file" name="file" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">Envoyer</button>
-                </div>
-            </div>
-        </form>
+<div class="container">
+    <?php $session->getFlashBag(); ?>
+    <div class="col-md-offset-2 col-md-10">
+        <p>Ajout d'un nouveau projet</p>
     </div>
+    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title" class="col-sm-2 control-label">Titre</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Titre" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="desc" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="desc" name="desc" placeholder="Description" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="type" class="col-sm-2 control-label">Type</label>
+            <div class="col-sm-10">
+                <select name="type" id="type" class="form-control">
+                    <?php
+                    /** @var Type $type */
+                    foreach ($types as $type) {
+                        $id = $type->getId();
+                        $name = $type->getName();
+                        echo "<option value='$id'>$name</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="file" class="col-sm-2 control-label">Photo</label>
+            <div class="col-sm-10">
+                <input type="file" id="file" name="file" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Envoyer</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

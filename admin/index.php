@@ -45,24 +45,22 @@ if (isset($_POST['username'])) {
 <body>
 <?php include_once(__DIR__."/header.php"); ?>
 
-<div class="row">
-    <div class="container">
-        <?php $session->getFlashBag(); ?>
-        <div class="col-md-offset-2 col-md-10">
-            <p>Veuillez entrer vos identifiants afin d'accéder à l'admin</p>
-        </div>
-        <form method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="pseudo">Pseudo</label>
-                <input type="text" class="form-control" id="pseudo" placeholder="Pseudo" name="username">
-            </div>
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" class="form-control" id="password" placeholder="Mot de passe" name="password">
-            </div>
-            <button type="submit" class="btn btn-default">Envoyer</button>
-        </form>
+<div class="container">
+    <?php $session->getFlashBag(); ?>
+    <div class="col-md-offset-2 col-md-10">
+        <p>Veuillez entrer vos identifiants afin d'accéder à l'admin</p>
     </div>
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="pseudo">Pseudo</label>
+            <input type="text" class="form-control" id="pseudo" placeholder="Pseudo" name="username">
+        </div>
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" id="password" placeholder="Mot de passe" name="password">
+        </div>
+        <button type="submit" class="btn btn-default">Envoyer</button>
+    </form>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

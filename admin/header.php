@@ -7,8 +7,9 @@
  */
 require_once(__DIR__."/../app/bootstrap.php");
 use ORM\Repository\ProjectRepository;
+
 $projectRepo = new ProjectRepository();
-$projects = $projectRepo->findAllNotDeleted();
+$headerProjects = $projectRepo->findAllNotDeleted();
 ?>
 
 <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
@@ -34,14 +35,13 @@ $projects = $projectRepo->findAllNotDeleted();
                        aria-expanded="false">Modifier un projet <span class="caret"></span></a>
                     <ul class="dropdown-menu scrollable-menu">
                         <?php
-                        /** @var \ORM\Entity\Project $project */
-                        foreach ($projects as $project) {
-                            $name = $project->getTitle();
-                            $id = $project->getId();
+                        /** @var \ORM\Entity\Project $headerProject */
+                        foreach ($headerProjects as $headerProject) {
+                            $name = $headerProject->getTitle();
+                            $id = $headerProject->getId();
                             echo "<li><a href='./project_edit.php?project=$id'>$name</a></li>";
                         }
                         ?>
-
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -49,14 +49,13 @@ $projects = $projectRepo->findAllNotDeleted();
                        aria-expanded="false">Supprimer un projet <span class="caret"></span></a>
                     <ul class="dropdown-menu scrollable-menu">
                         <?php
-                        /** @var \ORM\Entity\Project $project */
-                        foreach ($projects as $project) {
-                            $name = $project->getTitle();
-                            $id = $project->getId();
+                        /** @var \ORM\Entity\Project $headerProject */
+                        foreach ($headerProjects as $headerProject) {
+                            $name = $headerProject->getTitle();
+                            $id = $headerProject->getId();
                             echo "<li><a href='./project_delete.php?project=$id'>$name</a></li>";
                         }
                         ?>
-
                     </ul>
                 </li>
             </ul>

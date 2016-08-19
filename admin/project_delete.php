@@ -44,22 +44,20 @@ if (isset($_POST['delete'])) {
 </head>
 <body>
 <?php include_once(__DIR__."/header.php"); ?>
-<div class="row">
-    <div class="container">
-        <?php $session->getFlashBag(); ?>
-        <div class="col-md-offset-2 col-md-10">
-            <h1>Suppression du projet <?= $project->getTitle() ?></h1>
-        </div>
-        <form class="form-horizontal" method="post" enctype="multipart/form-data"
-              action="<?= $_SERVER['REQUEST_URI'] ?>">
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" name="delete" class="btn btn-danger">Confirmer la suppression</button>
-                    <button type="submit" name="redirect" class="btn btn-info">Ne pas supprimer</button>
-                </div>
-            </div>
-        </form>
+<div class="container">
+    <?php $session->getFlashBag(); ?>
+    <div class="col-md-offset-2 col-md-10">
+        <h1>Suppression du projet <?= $project->getTitle() ?></h1>
     </div>
+    <form class="form-horizontal" method="post" enctype="multipart/form-data"
+          action="<?= $_SERVER['REQUEST_URI'] ?>">
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" name="delete" class="btn btn-danger">Confirmer la suppression</button>
+                <button type="submit" name="redirect" class="btn btn-info">Ne pas supprimer</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

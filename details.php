@@ -13,9 +13,6 @@ use ORM\Repository\TypeRepository;
 use ORM\Repository\ProjectRepository;
 use ORM\Entity\Type;
 use ORM\Entity\Project;
-use Pagerfanta\Adapter\ArrayAdapter;
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\View\TwitterBootstrapView;
 
 $typeRepo = new TypeRepository();
 $projectRepo = new ProjectRepository();

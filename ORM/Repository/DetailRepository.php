@@ -11,6 +11,7 @@ namespace ORM\Repository;
 
 use ORM\Entity\Detail;
 use Maps_red\ORM\Abstracts\MainRepository;
+use ORM\Entity\Project;
 
 /**
  * Class DetailRepository
@@ -70,6 +71,15 @@ class DetailRepository extends MainRepository
     public static function hydrate($object, array $data)
     {
         return self::customHydrate($object, $data, ["project"], ["ProjectRepository"]);
+    }
+
+    /**
+     * @param Project $project
+     * @return null|Detail
+     */
+    public function findOneByProject(Project $project)
+    {
+        return $this->findOneBy(['project' => $project->getId()]);
     }
 
 }

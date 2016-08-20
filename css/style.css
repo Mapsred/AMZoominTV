@@ -60,7 +60,7 @@ ul {
 }   
 
 .link-footer:hover {
-    color : #FFFFFF;
+    color : #72869B;
 }
 
 /*-------------------------*/
@@ -188,7 +188,7 @@ body, html {
 
 .top-rated { color : #666666; margin-left : 15px; font-weight : 500; }
 
-.recent, .oldies { color : #CCCCCC; font-weight : 500; margin-left : 40px; }
+.recent, .oldies { color : #F8A1AA; font-weight : 500; margin-left : 40px; }
 
 .top-rated:hover, .recent:hover, .oldies:hover { color : #666666; opacity : 1; }
 

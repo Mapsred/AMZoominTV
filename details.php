@@ -9,21 +9,26 @@ require_once(__DIR__."/app/bootstrap.php");
 require_once(__DIR__."/admin/Session.php");
 require_once(__DIR__."/Router.php");
 
-use ORM\Repository\TypeRepository;
 use ORM\Repository\ProjectRepository;
-use ORM\Entity\Type;
+use ORM\Repository\DetailRepository;
 use ORM\Entity\Project;
 
-$typeRepo = new TypeRepository();
 $projectRepo = new ProjectRepository();
+$detailRepo = new DetailRepository();
 
-$types = $typeRepo->findBy([], ['id' => "DESC"]);
+$detail = "";
 if (isset($_GET['project'])) {
     $project = $projectRepo->findOneById($_GET['project']);
+    $detail = $detailRepo->findOneByProject($project);
 }
 
 if (!isset($project) || !isset($_GET['project'])) {
     $project = $projectRepo->findOne();
+    $detail = $detailRepo->findOneByProject($project);
+}
+
+if (!isset($detail)) {
+    echo "Aucun détail n'est disponible pour le projet ".$project->getId();
 }
 
 $similars = $projectRepo->findBySimilarType($project);
@@ -52,98 +57,7 @@ $similars = $projectRepo->findBySimilarType($project);
 <!-- CACHE -->
 <div class="cache"></div>
 
-<!-- HEADER -->
-<div id="wrapper-header">
-    <div id="main-header" class="object">
-        <div class="logo">
-            <a href="./">
-                <img src="medias/logo_dark.png" alt="logo" style="height:38px;">
-            </a>
-        </div>
-        <div id="main_tip_search">
-            <form action="./">
-                <label for="tip_search_input" class="sr-only"></label>
-                <input type="text" name="search" id="tip_search_input" list="search" autocomplete=off required>
-            </form>
-        </div>
-        <div id="stripes"></div>
-    </div>
-</div>
-
-<!-- NAVBAR -->
-
-<div id="wrapper-navbar">
-    <div class="navbar object">
-        <div id="wrapper-sorting">
-            <div id="wrapper-title-2">
-                <a href="<?= Router::generate(["type" => "new"], "./") ?>">
-                    <div class="recent object">Récents</div>
-                </a>
-            </div>
-
-            <div id="wrapper-title-3">
-                <a href="<?= Router::generate(["type" => "old"], "./") ?>">
-                    <div class="oldies object">Anciens</div>
-                </a>
-            </div>
-        </div>
-
-        <div id="wrapper-bouton-icon">
-            <?php
-            /** @var Type $type */
-            foreach ($types as $type): ?>
-                <div class="bouton">
-                    <a href="<?= Router::generate(["type" => $type->getSlug()], "./") ?>">
-                        <img src="img/icons/<?= $type->getImg() ?>" alt="<?= $type->getName() ?>"
-                             title="<?= $type->getId() ?>">
-                    </a>
-                </div>
-                <?php
-            endforeach;
-            ?>
-        </div>
-    </div>
-</div>
-
-<!-- FILTER - RESPONSIVE MENU -->
-
-<div id="main-container-menu" class="object">
-    <div class="container-menu">
-
-        <div id="main-cross">
-            <div id="cross-menu"></div>
-        </div>
-
-        <div id="main-small-logo">
-            <div class="small-logo"></div>
-        </div>
-
-        <div id="main-premium-ressource">
-            <div class="premium-ressource"><a href="#">Premium resources</a></div>
-        </div>
-
-        <div id="main-themes">
-            <div class="themes"><a href="#">Latest themes</a></div>
-        </div>
-
-        <div id="main-psd">
-            <div class="psd"><a href="#">PSD goodies</a></div>
-        </div>
-
-        <div id="main-ai">
-            <div class="ai"><a href="#">Illustrator freebies</a></div>
-        </div>
-
-        <div id="main-font">
-            <div class="font"><a href="#">Free fonts</a></div>
-        </div>
-
-        <div id="main-photo">
-            <div class="photo"><a href="#">Free stock photos</a></div>
-        </div>
-
-    </div>
-</div>
+<?php include_once(__DIR__."/layout/header.php"); ?>
 
 <!-- PORTFOLIO -->
 
@@ -156,15 +70,52 @@ $similars = $projectRepo->findBySimilarType($project);
             <div class="title-item">
                 <div class="title-icon"></div>
                 <div class="title-text"><?= $project->getTitle() ?></div>
-                <div class="title-text-2"><?= $project->getCreatedAt() ?></div>
             </div>
 
 
             <div class="work">
                 <figure class="white">
-                    <img src="medias/projects/<?= $project->getImage() ?>" alt="<?= $project->getTitle() ?>"/>
+                    <?php
+                    $name = $project->getTitle();
+                    $img = '<img src="medias/projects/%s" class="min-img" alt="%s" data-img="%s">';
+                    $imgHidden = '<img src="medias/projects/%s" alt="%s" style="display: none" class="%s">';
+                    if (!empty($detail->getYoutube())) { ?>
+                        <div class="embed-responsive embed-responsive-16by9 youtube">
+                            <iframe class="embed-responsive-item" src="<?= $detail->getYoutube() ?>"
+                                    allowfullscreen=""></iframe>
+                        </div>
+                        <?php
+                        echo sprintf($imgHidden, $detail->getImage1(), $name, "image_1");
+                    }
+                    if (!empty($detail->getImage2())) {
+                        echo sprintf($imgHidden, $detail->getImage2(), $name, "image_2");
+                    }
+                    if (!empty($detail->getImage3())) {
+                        echo sprintf($imgHidden, $detail->getImage3(), $name, "image_3");
+                    }
+                    if (!empty($detail->getImage4())) {
+                        echo sprintf($imgHidden, $detail->getImage4(), $name, "image_4");
+                    }
+
+                    ?>
                     <div id="wrapper-part-info">
-                        <div class="part-info-image"></div>
+                        <div class="part-info-image">
+                            <?php
+                            if (!empty($detail->getYoutube())) {
+                                echo '<img src="img/youtube.png" class="min-img" alt="youtube" data-img="youtube">';
+                                echo sprintf($img, $detail->getImage1(), $name, "image_1");
+                            }
+                            if (!empty($detail->getImage2())) {
+                                echo sprintf($img, $detail->getImage2(), $name, "image_2");
+                            }
+                            if (!empty($detail->getImage3())) {
+                                echo sprintf($img, $detail->getImage3(), $name, "image_3");
+                            }
+                            if (!empty($detail->getImage4())) {
+                                echo sprintf($img, $detail->getImage4(), $name, "image_4");
+                            }
+                            ?>
+                        </div>
                     </div>
                 </figure>
 
@@ -172,19 +123,20 @@ $similars = $projectRepo->findBySimilarType($project);
 
 
                     <div class="wrapper-file">
-                        <div class="icon-file"><img src="img/icons/<?= $project->getType()->getImg() ?>"
-                                                    alt="<?= $project->getType()->getName() ?>"
-                                                    style="width: 21px;height: 21px;"/></div>
+                        <div class="icon-file">
+                            <img src="img/icons/<?= $project->getType()->getImg() ?>"
+                                 alt="<?= $project->getType()->getName() ?>"
+                                 style="width: 21px;height: 21px;"/>
+                        </div>
                         <div class="text-file"><?= $project->getType()->getName() ?></div>
                     </div>
 
                     <div class="wrapper-desc">
                         <div class="icon-desc"><img src="img/icon-desc.svg" alt="" width="24" height="24"/></div>
-                        <div class="text-desc"><?= $project->getDescription() ?>
+                        <div class="text-desc"><?= $detail->getDescription() ?>
                         </div>
                     </div>
-                    <?php
-                    if (count($similars) > 0) :
+                    <?php if (count($similars) > 0) :
                         ?>
                         <div class="wrapper-morefrom">
                             <div class="text-morefrom">Plus de <?= $project->getType()->getName() ?></div>
@@ -209,9 +161,7 @@ $similars = $projectRepo->findBySimilarType($project);
                             </div>
                         </div>
                         <?php
-                    endif;
-
-                    ?>
+                    endif; ?>
 
                 </div>
             </div>
@@ -220,12 +170,13 @@ $similars = $projectRepo->findBySimilarType($project);
 
     <div id="wrapper-thank">
         <div class="thank">
-            <div class="thank-text"><img src="medias/logo_light.png" alt="ZoominTV"
-                                         style="height: 80px; margin-bottom: 60px;"/></div>
+            <div class="thank-text">
+                <img src="medias/logo_light.png" alt="ZoominTV" style="height: 80px; margin-bottom: 60px;"/>
+            </div>
         </div>
     </div>
 
-    <?php include_once(__DIR__."/footer.php"); ?>
+    <?php include_once(__DIR__."/layout/footer.php"); ?>
 
 </div>
 
@@ -239,7 +190,7 @@ $similars = $projectRepo->findBySimilarType($project);
 <script type="text/javascript" src="js/jquery.animate-colors-min.js"></script>
 <script type="text/javascript" src="js/jquery.animate-shadow-min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
-
+<script type="text/javascript" src="js/detail.js"></script>
 
 </body>
 

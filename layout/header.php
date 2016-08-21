@@ -25,7 +25,8 @@ $types = $typeRepo->findBy([], ['id' => "DESC"]);
         <div id="main_tip_search">
             <form action="./">
                 <label for="tip_search_input" class="sr-only"></label>
-                <input type="text" name="search" id="tip_search_input" list="search" autocomplete=off required>
+                <input type="text" name="search" id="tip_search_input" list="search" autocomplete=off
+                       placeholder="Rechercher" required>
             </form>
         </div>
     </div>

@@ -114,13 +114,6 @@ $paginator = $view->render($pagerfanta, $routeGenerator, $options);
         <?= $paginator ?>
     </div>
 
-    <div id="wrapper-thank">
-        <div class="thank">
-            <div class="thank-text"><img src="medias/logo_light.png" alt="ZoominTV"
-                                         style="height: 80px; margin-bottom: 60px;"/></div>
-        </div>
-    </div>
-
     <?php include_once(__DIR__."/layout/footer.php"); ?>
 </div>
 

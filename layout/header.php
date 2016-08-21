@@ -28,7 +28,6 @@ $types = $typeRepo->findBy([], ['id' => "DESC"]);
                 <input type="text" name="search" id="tip_search_input" list="search" autocomplete=off required>
             </form>
         </div>
-        <div id="stripes"></div>
     </div>
 </div>
 
@@ -38,7 +37,7 @@ $types = $typeRepo->findBy([], ['id' => "DESC"]);
     <div class="navbar object">
         <div id="wrapper-sorting">
             <div id="wrapper-title-3" class="recent desc">
-                Sous portfolio d'<a href="http://www.amelie-mathieu.fr" target="_blank">Amélie Mathieu</a> - Stage Zoomin.TV (juin-septembre 2016)
+                Sous portfolio d'<a href="http://www.amelie-mathieu.fr" target="_blank">Amélie Mathieu</a>
             </div>
         </div>
 
@@ -56,45 +55,5 @@ $types = $typeRepo->findBy([], ['id' => "DESC"]);
             endforeach;
             ?>
         </div>
-    </div>
-</div>
-
-<!-- FILTER - RESPONSIVE MENU -->
-
-<div id="main-container-menu" class="object">
-    <div class="container-menu">
-
-        <div id="main-cross">
-            <div id="cross-menu"></div>
-        </div>
-
-        <div id="main-small-logo">
-            <div class="small-logo"></div>
-        </div>
-
-        <div id="main-premium-ressource">
-            <div class="premium-ressource"><a href="#">Premium resources</a></div>
-        </div>
-
-        <div id="main-themes">
-            <div class="themes"><a href="#">Latest themes</a></div>
-        </div>
-
-        <div id="main-psd">
-            <div class="psd"><a href="#">PSD goodies</a></div>
-        </div>
-
-        <div id="main-ai">
-            <div class="ai"><a href="#">Illustrator freebies</a></div>
-        </div>
-
-        <div id="main-font">
-            <div class="font"><a href="#">Free fonts</a></div>
-        </div>
-
-        <div id="main-photo">
-            <div class="photo"><a href="#">Free stock photos</a></div>
-        </div>
-
     </div>
 </div>

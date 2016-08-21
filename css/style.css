@@ -688,7 +688,6 @@ body, html {
     font-size               : 15px;
     height                  : 70px;
     line-height             : 70px;
-    cursor                  : pointer;
     -webkit-font-smoothing  : antialiased;
     -moz-osx-font-smoothing : grayscale;
     color                   : #666666;

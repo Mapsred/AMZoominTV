@@ -832,21 +832,6 @@ textarea.placeholder {
     top         : 0;
 }
 
-.copy-text {
-    float                   : left;
-    text-align              : left;
-    font-family             : 'Roboto', sans-serif;
-    font-size               : 15px;
-    height                  : 70px;
-    line-height             : 70px;
-    cursor                  : pointer;
-    -webkit-font-smoothing  : antialiased;
-    -moz-osx-font-smoothing : grayscale;
-    color                   : #666666;
-    margin-left             : 15px;
-    font-weight             : 500;
-}
-
 .wrapper-navbouton {
     position : absolute;
     height   : 100%;

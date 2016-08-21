@@ -42,11 +42,7 @@
 
 <div id="wrapper-copyright">
     <div class="copyright">
-        <div class="copy-text object">Copyright © Amélie Mathieu 2016.
-            <a class="link-footer" href="http://www.amelie-mathieu.fr" target="_blank">
-                Accéder à mon portfolio principal
-            </a>
-        </div>
+        <div class="copy-text object">Copyright © Amélie Mathieu 2016.</div>
     </div>
 </div>
 

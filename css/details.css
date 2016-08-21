@@ -145,7 +145,6 @@ body, html {
     top         : 0;
 }
 
-
 .top-rated { color : #666666; margin-left : 15px; font-weight : 500; }
 
 #fleche-nav-1, #fleche-nav-2, #fleche-nav-3 {
@@ -608,6 +607,7 @@ textarea.placeholder {
 
 .title-text {
     font-family             : Helvetica, sans-serif;
+    text-transform          : uppercase;
     -webkit-font-smoothing  : antialiased;
     -moz-osx-font-smoothing : grayscale;
     font-size               : 22px;

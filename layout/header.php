@@ -48,7 +48,7 @@ $types = $typeRepo->findBy([], ['id' => "DESC"]);
                 <div class="bouton">
                     <a href="<?= Router::generate(["type" => $type->getSlug()], "./") ?>">
                         <img src="img/icons/<?= $type->getImg() ?>" alt="<?= $type->getName() ?>"
-                             title="<?= $type->getId() ?>">
+                             title="<?= $type->getName() ?>">
                     </a>
                 </div>
                 <?php

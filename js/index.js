@@ -47,17 +47,6 @@ var Index = {
         }, false);
     },
 
-    menuSide: function () {
-        document.getElementById('stripes').addEventListener('click', function() {
-            $("#main-container-menu").stop().animate({left:'0'},300);
-        });
-
-        document.getElementById('cross-menu').addEventListener('click', function() {
-            $("#main-container-menu").stop().animate({'left':'-100%'},300);
-        });
-
-    }
-
 };
 
 
@@ -65,5 +54,4 @@ $(document).ready(function () {
     Index.init();
     Index.buttonMenu();
     Index.onScroll();
-    Index.menuSide();
 });

@@ -83,7 +83,7 @@ $similars = $projectRepo->findBySimilarType($project);
                     $img = '<img src="medias/projects/%s" class="min-img" alt="%s" data-img="%s">';
                     $imgHidden = '<img src="medias/projects/%s" alt="%s" style="display: none" class="%s">';
                     if (!empty($detail->getYoutube())) { ?>
-                        <div class="embed-responsive embed-responsive-16by9 youtube">
+                        <div class="embed-responsive embed-responsive-16by9 video">
                             <iframe class="embed-responsive-item" src="<?= $detail->getYoutube() ?>"
                                     allowfullscreen=""></iframe>
                         </div>
@@ -105,7 +105,11 @@ $similars = $projectRepo->findBySimilarType($project);
                         <div class="part-info-image">
                             <?php
                             if (!empty($detail->getYoutube())) {
-                                echo '<img src="img/youtube.png" class="min-img" alt="youtube" data-img="youtube">';
+                                if (strpos($detail->getYoutube(), "youtube") !== false) {
+                                    echo '<img src="img/youtube.png" class="min-img" alt="video" data-img="video">';
+                                } else {
+                                    echo '<img src="img/video.png" class="min-img" alt="video" data-img="video">';
+                                }
                                 echo sprintf($img, $detail->getImage1(), $name, "image_1");
                             }
                             if (!empty($detail->getImage2())) {

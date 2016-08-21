@@ -37,16 +37,8 @@ $types = $typeRepo->findBy([], ['id' => "DESC"]);
 <div id="wrapper-navbar">
     <div class="navbar object">
         <div id="wrapper-sorting">
-            <div id="wrapper-title-2">
-                <a href="<?= Router::generate(["type" => "new"], "./") ?>">
-                    <div class="recent object">Récents</div>
-                </a>
-            </div>
-
-            <div id="wrapper-title-3">
-                <a href="<?= Router::generate(["type" => "old"], "./") ?>">
-                    <div class="oldies object">Anciens</div>
-                </a>
+            <div id="wrapper-title-3" class="recent desc">
+                Sous portfolio d'<a href="http://www.amelie-mathieu.fr" target="_blank">Amélie Mathieu</a> - Stage Zoomin.TV (juin-septembre 2016)
             </div>
         </div>
 

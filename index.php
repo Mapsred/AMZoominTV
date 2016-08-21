@@ -17,17 +17,6 @@ use Pagerfanta\View\TwitterBootstrapView;
 
 $projectRepo = new ProjectRepository();
 
-if (isset($_GET['type'])) {
-    $type = $_GET['type'];
-    if ($type == "old") {
-        $projects = $projectRepo->findBy([], ['id' => "ASC"]);
-    }else if ($type == "new") {
-        $projects = $projectRepo->findBy([], ['id' => "DESC"]);
-    }else {
-        $projects = $projectRepo->findByTypeSlug($type);
-    }
-}
-
 if (isset($_GET['search'])) {
     $projects = $projectRepo->findByString($_GET['search']);
 }

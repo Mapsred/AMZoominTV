@@ -68,7 +68,10 @@ $similars = $projectRepo->findBySimilarType($project);
         <div id="main-container-image">
 
             <div class="title-item">
-                <div class="title-icon"></div>
+                <div class="title-icon">
+                    <img src="img/icons/<?= $project->getType()->getImg() ?>"
+                         alt="<?= $project->getType()->getName() ?>"/>
+                </div>
                 <div class="title-text"><?= $project->getTitle() ?></div>
             </div>
 

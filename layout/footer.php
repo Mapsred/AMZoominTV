@@ -12,26 +12,25 @@
     <div class="container-footer">
         <div id="row-1f">
             <div class="text-row-1f"><span
-                    style="font-weight:600;font-size:15px;color:#666;line-height:250%;text-transform:uppercase;letter-spacing:1.5px;"></span><br>
+                    style="font-weight:600;font-size:15px;color:#666;line-height:250%;text-transform:uppercase;"></span><br>
             </div>
         </div>
         <div id="row-2f">
             <div class="text-row-2f">
                 <span
-                    style="font-weight:600;font-size:15px;color:#666;line-height:250%;text-transform:uppercase;letter-spacing:1.5px;">
+                    style="font-weight:600;font-size:15px;color:#666;line-height:250%;text-transform:uppercase;">
                     Information
                 </span><br>
                 Ce site est un portfolio visant à montrer les travaux réalisés durant mon stage à Zoomin.TV.
                 Les autres projets que j'ai réalisés, sans rapport avec ce stage, se trouvent sur
-                <a class="link-footer" href="http://www.amelie-mathieu.fr" target="_blank">
-                    mon portfolio principal
-                </a>
+                <a class="link-footer" href="http://www.amelie-mathieu.fr" target="_blank" style="font-weight: bold">
+                    mon portfolio principal</a>.
             </div>
         </div>
         <div id="row-3f">
             <div class="text-row-3f">
                 <span
-                    style="font-weight:600;font-size:15px;color:#666;line-height:250%;text-transform:uppercase;letter-spacing:1.5px;">Zoomin TV</span><br>
+                    style="font-weight:600;font-size:15px;color:#666;line-height:250%;text-transform:uppercase;">Zoomin TV</span><br>
                 Première productrice européenne de vidéos en ligne, l’entreprise est actuellement présente sur
                 26 marchés à travers le monde et est en pleine expansion. Le siège est situé à Amsterdam
                 (lieu de mon stage).

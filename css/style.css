@@ -179,7 +179,6 @@ body, html {
     height                  : 40px;
     line-height             : 40px;
     margin-top              : 10px;
-    cursor                  : pointer;
     -webkit-font-smoothing  : antialiased;
     -moz-osx-font-smoothing : grayscale;
     text-transform          : uppercase;
@@ -190,7 +189,7 @@ body, html {
 
 .recent, .oldies { color : #F8A1AA; font-weight : 500; margin-left : 40px; }
 
-.top-rated:hover, .recent:hover, .oldies:hover { color : #666666; opacity : 1; }
+.top-rated:hover, .recent a:hover, .oldies:hover { color : #666666; opacity : 1; }
 
 #fleche-nav-1, #fleche-nav-2, #fleche-nav-3 {
     float       : left;
